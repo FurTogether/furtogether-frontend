@@ -11,8 +11,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Signup = () => {
-  const [isSignup, setIsSignup] = useState(false);
-  // console.log(isSignup);
+
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     givenname: "",

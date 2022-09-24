@@ -5,8 +5,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
-  // const [isSignup, setIsSignup] = useState(false);
-  // console.log(isSignup);
+
   const [inputs, setInputs] = useState({
     // name: "",
     email: "",
@@ -23,8 +22,8 @@ const Signin = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    // e.preventDefault(); // prevent a new http request upon submit
+  const handleSubmit = async () => {
+
     try {
       console.log(inputs);
       // const res = await axios.post(

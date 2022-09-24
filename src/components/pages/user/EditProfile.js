@@ -219,7 +219,6 @@ const EditProfile = () => {
           padding={3}
         >
           <Button
-            // endIcon={<HowToRegOutlinedIcon />}
             type="submit"
             onSubmit={handleSubmit}
             sx={{ marginTop: 3, borderRadius: 3 }}
@@ -233,23 +232,6 @@ const EditProfile = () => {
           </Button>
         </Box>
       </Box>
-      {/* <Box display="flex" flexDirection={"row"} ml={2} mt={1}>
-          <Box width={100} mt={3}>
-            {" "}
-            <Typography>Fee: </Typography>
-          </Box>
-          <Box ml={10}>
-            <TextField
-              onChange={handleChange}
-              name="fee"
-              value={info?.fee}
-              margin="normal"
-              type={"fee"}
-              variant="outlined"
-              placeholder="Fee"
-            />
-          </Box>
-        </Box> */}
     </form>
   );
 };
