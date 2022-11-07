@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { supabase } from '../../../services/supabaseClient'
-import { Box, Flex, useColorModeValue, Stack, HStack, Stat, StatLabel, StatNumber, StatHelpText } from '@chakra-ui/react'
+import { Box, Flex, useColorModeValue, Stack, HStack, Stat, StatLabel, StatNumber, StatHelpText, Avatar as ProfilePicture } from '@chakra-ui/react'
 import { MultipleFileUpload } from '../../atoms'
-import { ImageViewer, ChakraCheckBox, SimpleSideBar } from '../../molecules'
+import { ImageViewer, ChakraCheckBox, SimpleSideBar, ModalSize } from '../../molecules'
 import { Avatar } from '../../organisms'
 import { photoAlbumAPI } from '../../../api/photoalbum-api' 
+import { AppToast } from '../../atoms'
+import { useAvatar } from '../../../hooks/use-navbar'
 
 const MultiplePhotoUpload = ({ size, data }) => {
   const [arrayOfUrl, setArrayOfUrl] = useState([])
   const [animalUrl, setAnimalUrl] = useState([])
   const [uploading, setUploading] = useState(false)
   const [dogUpload, setDogUpload] = useState("")
+
+  const [slideNumber, setSlideNumber] = useState(0)
+  const [openModal, setOpenModal] = useState(false)
 
 
   useEffect(() => {
@@ -92,11 +97,13 @@ const MultiplePhotoUpload = ({ size, data }) => {
 
     const response = await photoAlbumAPI.uploadPhotoAlbum({listOfFileName,dogUpload})
     console.log(response)
+    feedBack.success()
 
     setUploading(!uploading)
     
     } catch (error) {
       console.error(error)
+      feedBack.error(error)
     }
   }
 
@@ -107,25 +114,37 @@ const MultiplePhotoUpload = ({ size, data }) => {
   }
 
 
+  const { avatarUrl, retrieveAvatar } = useAvatar()
+
+  const handleRetrieveAvatar = async () =>{
+    const abcd = await retrieveAvatar()
+  }
+
+  if (avatarUrl == null) {
+    handleRetrieveAvatar()
+    console.log('yes')
+  }
+
+
   return (
     <Flex direction='column'>
       <HStack bg={useColorModeValue('cyan.500', 'teal.800')} p='2' mt='2' align={'center'} justify={'space-around'}> 
-        <Box>
-          <Avatar/>
+        <Box m={'5px'}>
+          <ProfilePicture size={'2xl'} src={avatarUrl}/>
         </Box>
         <HStack>
           <Box>
            <Stat px='6' py='2' border={'1px solid'} borderColor={useColorModeValue('gray.500', 'gray.500')}>
               {/* <StatLabel> Photos </StatLabel> */}
-              <StatNumber> 500 </StatNumber>
+              <StatNumber> {arrayOfUrl.length} </StatNumber>
               <StatHelpText> Photos</StatHelpText>
            </Stat>
           </Box>
           <Box>
               <Stat px='6' py='2' border={'1px solid'} borderColor={useColorModeValue('gray.500', 'gray.500')}>
               {/* <StatLabel> Photos </StatLabel> */}
-              <StatNumber> 1 </StatNumber>
-              <StatHelpText> Dog </StatHelpText>
+              <StatNumber> {data.length} </StatNumber>
+              <StatHelpText> {data.length> 1 ? 'Dogs' : 'Dog'} </StatHelpText>
            </Stat>
           </Box>
         </HStack>
@@ -138,16 +157,41 @@ const MultiplePhotoUpload = ({ size, data }) => {
           </Box>
         </Stack>
       </HStack>
-      <Stack>
-        <Box>
+      <HStack spacing={1}>
+        <Box width="20%" height="100%">
         <SimpleSideBar/>
         </Box>
-        <Box border={'1px solid'} direction='column'>
-          {arrayOfUrl ? <ImageViewer imageArray={animalUrl ? animalUrl : `https://via.placeholder.com/150`}/> : null}
+        <Box width="80%">
+          <Box border={'0px solid'} mt={'2px'} mr={'5px'}>
+            {arrayOfUrl ? <ImageViewer imageArray={animalUrl ? animalUrl : `https://via.placeholder.com/150`}/> : null}
+          </Box>
+          <ModalSize/>
         </Box>
-      </Stack>
+      </HStack>
     </Flex>
   )
 }
 
 export default MultiplePhotoUpload
+
+// TOAST MESSAGES
+const feedBack = {
+  success: () => {
+    AppToast({
+      title: 'Saved!',
+      description: `Your photos were updated.`,
+      status: 'success',
+      position: 'bottom-right',
+      duration: 5000,
+    });
+  },
+  error: (err) => {
+    AppToast({
+      title: 'Try again!',
+      description: err.message,
+      status: 'error',
+      position: 'bottom-right',
+      duration: 5000,
+    });
+  },
+};
