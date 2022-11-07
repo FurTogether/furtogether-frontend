@@ -11,3 +11,4 @@ export { default as LocationMarker } from './LocationMarker';
 export { default as ImageViewer } from './ImageViewer'
 export { default as ChakraCheckBox } from './ChakraCheckBox'
 export { default as SimpleSideBar } from './SimpleSideBar'
+export { default as ModalSize } from './ModalSize'

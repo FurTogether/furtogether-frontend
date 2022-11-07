@@ -24,7 +24,7 @@ const SimpleSideBar = () => {
 
     return (
       <>
-      <p> Lol </p>
+
     <Box
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
@@ -47,8 +47,8 @@ const SimpleSideBar = () => {
 
   return (
     <>
-    <Box>
-      <p> Test </p>
+    <Box border={'1px solid'}>
+      <p> This is a simple sidebar </p>
     </Box>
     </>
   )

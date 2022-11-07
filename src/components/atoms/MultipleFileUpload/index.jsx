@@ -1,8 +1,8 @@
 import React from 'react';
 import { Input, Text, Box, Stack } from '@chakra-ui/react';
 
-const MultipleFileUpload = ({handleChange}) => {
 
+const MultipleFileUpload = ({handleChange}) => {
 
 
   return (
@@ -16,9 +16,9 @@ const MultipleFileUpload = ({handleChange}) => {
       shadow="sm"
       role="group"
     >
-      <Box position="relative" height="100%" width="100%">
-        <Box position="absolute" display="flex" left="0" top="0">
-          <Text> Click to upload! Dont know how to align center</Text>
+      <Box position="relative" height="100%" width="100%" justifyContent="center" display="flex">
+        <Box position="absolute" display="flex">
+          <Text> Click to upload!</Text>
         </Box>
       </Box>
       <Input type="file" id="multiple" name="multiple" accept="image/*" multiple onChange={handleChange} aria-hidden="true" opacity="0">

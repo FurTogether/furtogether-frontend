@@ -5,8 +5,8 @@ import { MultipleFileUpload } from '../../atoms'
 
 
 const PhotoAlbum = ({data}) => {
-
-
+console.log('**')
+console.log(data)
 return (
   <>
   
