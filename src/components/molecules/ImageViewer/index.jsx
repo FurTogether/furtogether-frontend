@@ -34,13 +34,13 @@ const ImageViewer = ({imageArray}) => {
       setImageActual(imageArray[indexRight])
     }
   }
-
+  // p='2' mt="1" border='1px' bg='white' boxSize= "150px"
   return (
     <>
     <SimpleGrid minChildWidth='120px' spacing='10px'>
     {imageArray.map((image, index)=> (
-      <Box key={index} p='2' mt="1" border='1px' bg='white' _hover={{transform: 'scale(1.2)'}} onClick={(event)=> handleOpenModal(event, index)}>
-      <Image key={index} boxSize= "150px" src={image}/>
+      <Box key={index} onClick={(event)=> handleOpenModal(event, index)}>
+      <Image key={index} p='2' mt="1" border='1px' bg='white' boxSize= "150px" src={image} _hover={{transform: 'scale(1.2)'}}/>
       </Box>
     ))
     }

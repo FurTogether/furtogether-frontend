@@ -13,14 +13,12 @@ const MultiplePhotoUpload = ({ size, data }) => {
   const [animalUrl, setAnimalUrl] = useState([])
   const [uploading, setUploading] = useState(false)
   const [dogUpload, setDogUpload] = useState("")
-
-  const [slideNumber, setSlideNumber] = useState(0)
-  const [openModal, setOpenModal] = useState(false)
+  const [filter, setFilter] = useState([])
 
 
   useEffect(() => {
     const fetchImage = async () => {
-      const getPhotoAlbum = await photoAlbumAPI.retrievePhotoAlbum()
+      const getPhotoAlbum = await photoAlbumAPI.retrievePhotoAlbum({filter})
       const data = getPhotoAlbum['data']
       
       const urlContainer = []
@@ -108,9 +106,20 @@ const MultiplePhotoUpload = ({ size, data }) => {
   }
 
   const eventHandler= (event) => {
-    console.log('hiiiii this is event')
+    console.log('Dog button clicked')
     console.log(event)
     setDogUpload(event)
+  }
+
+  const eventHandlerFilter = async (event) => {
+    console.log('hehe')
+    console.log(event)
+    setFilter(event)
+
+    const listOfDog = event
+    setUploading(!uploading)
+    // const filterResponse = await photoAlbumAPI.retrievePhotoAlbum({listOfDog})
+    // console.log(filterResponse)
   }
 
 
@@ -157,9 +166,9 @@ const MultiplePhotoUpload = ({ size, data }) => {
           </Box>
         </Stack>
       </HStack>
-      <HStack spacing={1}>
-        <Box width="20%" height="100%">
-        <SimpleSideBar/>
+      <HStack spacing={1} display='flex' alignItems={'start'}>
+        <Box width="20%" height="100%" mt={'4px'}>
+          <SimpleSideBar eventHandler={eventHandlerFilter} data={data}/>
         </Box>
         <Box width="80%">
           <Box border={'0px solid'} mt={'2px'} mr={'5px'}>

@@ -17,10 +17,10 @@ class PhotoAlbumApi {
     })
   }
 
-  async retrievePhotoAlbum(){
+  async retrievePhotoAlbum({filter}){
     return new Promise((resolve, reject) => {
       try {
-        const response = apiService.post(`/photoalbum/retrievemultiple`);
+        const response = apiService.post(`/photoalbum/retrievemultiple`, {filter});
         console.log('Photo retrieved')
         resolve(response)
       } catch (err){
@@ -29,6 +29,20 @@ class PhotoAlbumApi {
       }
     })
   }
+
+  async retrievePhotoAlbumMultiple({listOfDog}){
+    return new Promise((resolve, reject) => {
+        try {
+          console.log(listOfDog)
+          const response = apiService.post(`/photoalbum/retrievemultiplefilter`, {listOfDog});
+          console.log('Photo retrieved')
+          resolve(response)
+        } catch (err){
+          console.error('[Photo API]: ', err);
+          reject(new Error('Internal server error'));
+        }
+      })
+    }
 
   async retrieveDogAlbum() {
       return new Promise((resolve, reject) => {
