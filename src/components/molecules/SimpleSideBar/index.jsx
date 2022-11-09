@@ -13,43 +13,36 @@ import {
   useDisclosure,
   BoxProps,
   FlexProps,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
 } from '@chakra-ui/react';
+import { ChakraCheckBox } from '../../molecules'
 
-const SimpleSideBar = () => {
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-
-  const SidebarContent = ({onClose, ...rest}) => {
-
-    return (
-      <>
-
-    <Box
-      bg={useColorModeValue('white', 'gray.900')}
-      borderRight="1px"
-      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-      w={{ base: 'full', md: 60 }}
-      pos="fixed"
-      h="full"
-      {...rest}>
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
-      </Flex>
-    </Box>
-    
-      </>
-    )
-  }
+const SimpleSideBar = ({eventHandler, data}) => {
 
   return (
     <>
-    <Box border={'1px solid'}>
-      <p> This is a simple sidebar </p>
-    </Box>
+    <Flex flexDirection={'column'} >
+      <Accordion defaultIndex={[]} allowMultiple>
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box flex='1' textAlign='left'>
+                Dog
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+            <ChakraCheckBox eventHandler={eventHandler} data={data} direction={'column'}/>
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
+      
+    </Flex>
     </>
   )
 }
